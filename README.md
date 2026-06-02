@@ -1,31 +1,105 @@
-# Task 1 - Temperature Monitoring & LCD Display
+# 🌡️ Task 1: Temperature Monitoring System
 
-## Intern Details
-- **Name:** [Aapka Naam Yahan Likhein]
-- **Internship ID:** [Aapki Internship ID]
-- **Company:** Alfido Tech
+**Alfido Tech - Embedded Systems Internship**
 
-## Goal
-The goal of this task is to read temperature data from an LM35 sensor (simulated via potentiometer) using an Arduino UNO, display the current value on a 16x2 I2C LCD, and log the readings over serial monitor. This project fulfills the Task 1 requirements for Alfido Tech's Embedded Internship program.
+This repository contains the solution for **Task 1**, which involves reading temperature data from an LM35 sensor (simulated via a potentiometer) and displaying the real-time values on a 16x2 I2C LCD using an Arduino UNO.
 
-## Components Used
-- Arduino UNO
-- LM35 Temperature Sensor (Wokwi uses Potentiometer workaround)
-- 16x2 Character I2C LCD Display
-- Jumper Wires & Breadboard
+## 👤 Intern Details
+- **Name:** [YOUR NAME HERE]
+- **Internship ID:** [YOUR INTERNSHIP ID HERE]
+- **Domain:** Embedded Systems
 
-## Circuit Wiring Diagram
-*(Upar upload ki hui Diagram image ka file name replace karein, e.g., `Circuit_Diagram.png`)*
+---
 
-<img src="Circuit_Diagram.png" alt="Circuit Wiring Diagram" width="500">
+## 🛠️ Hardware Components
+1. Arduino UNO
+2. LM35 Temperature Sensor (Simulated)
+3. 16x2 I2C LCD Display
+4. Breadboard & Jumper Wires
 
-*(Note: If LM35 was unavailable in Wokwi, a Potentiometer was used to simulate temperature via voltage.)*
+---
 
-## Working Video (60-second Demo)
-Niche di gayi video system ki live working dikhati hai. Ismein maine potentiometer ghumakar temperature change karke live LCD update dikhaya hai.
+## 📸 Circuit Diagram
+The circuit has been designed with accurate pin mapping for the I2C protocol and analog reading.
 
-*(Important: Yeh specific Markdown code apni video file embed karne ke liye use karein. Bas file name exact `AlfidoTech_Task1_TemperatureMonitor_Demo.mp4` rakhein)*
+*(Note: Replace `Circuit_Diagram.png` with the actual name of your uploaded image file if it is different)*
 
-<video src="AlfidoTech_Task1_TemperatureMonitor_Demo.mp4" width="600" controls>
-Your browser does not support the video tag.
+![Circuit Diagram](Circuit_Diagram.png)
+
+---
+
+## 🎥 Working Demonstration
+Below is the 60-second live demonstration of the simulation. As the sensor values are adjusted, the temperature updates in real-time on both the Serial Monitor and the I2C LCD.
+
+*(Note: Replace the URL in `src=""` with your actual video link copied from the Issues page)*
+
+<br>
+<video src="https://github.com/user-attachments/assets/a0e142a9-3230-43d1-ab76-08e5c72754aa" width="100%" controls>
+  Your browser does not support the video tag.
 </video>
+<br>
+
+---
+
+## 💻 Arduino Source Code
+The project uses the `LiquidCrystal_I2C` library for display management and non-blocking `millis()` logic for optimal performance.
+
+```cpp
+```cpp
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Create LCD object (I2C Address: 0x27, LCD Size: 16x2)
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// LM35 sensor connected to analog pin A0
+const int lm35Pin = A0;
+
+// Variables for timed temperature updates
+unsigned long lastUpdateTime = 0;
+const unsigned long updateInterval = 1000; // Update every 1 second
+
+void setup() {
+  // Start Serial Communication
+  Serial.begin(9600);
+
+  // Initialize LCD
+  lcd.init();
+  lcd.backlight();
+
+  // Welcome message
+  lcd.setCursor(0, 0);
+  lcd.print("Temp Monitor");
+  delay(2000);
+  lcd.clear();
+}
+
+void loop() {
+
+  // Check if it's time to update the temperature
+  if (millis() - lastUpdateTime >= updateInterval) {
+
+    lastUpdateTime = millis();
+
+    // Read sensor value from LM35
+    int sensorValue = analogRead(lm35Pin);
+
+    // Convert ADC value to voltage
+    float sensorVoltage = sensorValue * (5.0 / 1023.0);
+
+    // Convert voltage to temperature (LM35: 10mV per °C)
+    float temperature = sensorVoltage * 100.0;
+
+    // Print temperature on Serial Monitor
+    Serial.print("Current Temp: ");
+    Serial.print(temperature);
+    Serial.println(" °C");
+
+    // Display temperature on LCD
+    lcd.setCursor(0, 0);
+    lcd.print("Temp: ");
+    lcd.print(temperature);
+    lcd.print(" C   ");   // Extra spaces clear old digits
+  }
+}
+```
