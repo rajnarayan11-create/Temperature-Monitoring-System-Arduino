@@ -24,7 +24,7 @@ The circuit has been designed with accurate pin mapping for the I2C protocol and
 
 *(Note: Replace `Circuit_Diagram.png` with the actual name of your uploaded image file if it is different)*
 
-![Circuit Diagram](Circuit_Diagram.png)
+![Circuit Diagram](My_Circuit.jpg)
 
 ---
 
