@@ -5,8 +5,8 @@
 This repository contains the solution for **Task 1**, which involves reading temperature data from an LM35 sensor (simulated via a potentiometer) and displaying the real-time values on a 16x2 I2C LCD using an Arduino UNO.
 
 ## 👤 Intern Details
-- **Name:** [YOUR NAME HERE]
-- **Internship ID:** [YOUR INTERNSHIP ID HERE]
+- **Name:** [RAJ NARAYAN GAUR]
+- **Internship ID:** [BS/REG/121633]
 - **Domain:** Embedded Systems
 
 ---
