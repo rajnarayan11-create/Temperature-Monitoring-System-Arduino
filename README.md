@@ -23,8 +23,7 @@ This repository contains the solution for **Task 1**, which involves reading tem
 The circuit has been designed with accurate pin mapping for the I2C protocol and analog reading.
 
 
-![Circuit Diagram](<img width="1600" height="720" alt="Image" src="https://github.com/user-attachments/assets/35ce006e-2f73-4601-824f-19fbbb5580c3" /)
-
+![Circuit Diagram](https://github.com/user-attachments/assets/35ce006e-2f73-4601-824f-19fbbb5580c3)
 ---
 
 ## 🎥 Working Demonstration
